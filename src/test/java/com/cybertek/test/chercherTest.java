@@ -4,17 +4,21 @@ import com.cybertek.utilities.WebDriverFactory;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Driver;
 import java.util.concurrent.TimeUnit;
 
 public class chercherTest {
 
     WebDriver driver;
+    WebDriverWait wait;
 
     @BeforeMethod
 
@@ -41,6 +45,24 @@ public class chercherTest {
 
         Alert alert = driver.switchTo().alert();
         alert.accept();
+
+    }
+
+    @Test
+
+    public void disabledButtonTest(){
+
+        WebElement button = driver.findElement(By.id("disable"));
+        button.click();
+
+        WebElement buttonİniator = driver.findElement(By.id("enable-button"));
+        buttonİniator.click();
+
+        wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.elementToBeClickable(button));
+
+        System.out.println("button.isEnabled() = " + button.isEnabled());
+        Assert.assertTrue(button.isEnabled(),"verify the button is enabled");
 
     }
 }
